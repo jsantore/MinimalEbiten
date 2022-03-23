@@ -2,8 +2,8 @@ package main
 
 import (
 	"embed"
-	"github.com/hajimehoshi/ebiten/v2"
-	"github.com/hajimehoshi/ebiten/v2/inpututil"
+	ebiten "github.com/hajimehoshi/ebiten/v2"
+	inpututil "github.com/hajimehoshi/ebiten/v2/inpututil"
 	"image/png"
 	"log"
 )
@@ -87,7 +87,15 @@ func processPlayerInput(theGame *Game) {
 	} else if inpututil.IsKeyJustReleased(ebiten.KeyUp) || inpututil.IsKeyJustReleased(ebiten.KeyDown) {
 		theGame.player.dY = 0
 	}
+	if inpututil.IsKeyJustPressed(ebiten.KeyLeft) {
+		theGame.player.dX = -PlayerSpeed
+	} else if inpututil.IsKeyJustPressed(ebiten.KeyRight) {
+		theGame.player.dX = PlayerSpeed
+	} else if inpututil.IsKeyJustReleased(ebiten.KeyLeft) || inpututil.IsKeyJustReleased(ebiten.KeyRight) {
+		theGame.player.dX = 0
+	}
 	theGame.player.yloc += theGame.player.dY
+	theGame.player.xloc += theGame.player.xloc
 	if theGame.player.yloc <= 0 {
 		theGame.player.dY = 0
 		theGame.player.yloc = 0
